@@ -1,3 +1,6 @@
+import { ApolloWrapper } from "../lib/apollo-wrapper";
+import { StyledComponentsWrapper } from "../lib/styled-components-wrapper";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +8,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ApolloWrapper>
+          <StyledComponentsWrapper>{children}</StyledComponentsWrapper>
+        </ApolloWrapper>
+      </body>
     </html>
   );
 }

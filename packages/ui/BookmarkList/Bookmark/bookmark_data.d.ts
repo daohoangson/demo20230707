@@ -22,6 +22,7 @@ export type BookmarkDetailData = {
 export type BookmarkImportSource = "TELEGRAM_FILE" | "URL";
 
 export type BookmarkMetadata = {
+  __typename?: "ContentMetadata";
   description?: string;
   title?: string;
 };
