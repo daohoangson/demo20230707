@@ -1,5 +1,5 @@
 import { FC, memo, useCallback } from "react";
-import type { BookmarkData } from "./bookmark_data";
+import type { BookmarkData } from "../bookmark_data";
 import BookmarkContent from "./BookmarkContent";
 import styled from "styled-components";
 

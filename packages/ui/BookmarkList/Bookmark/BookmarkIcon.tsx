@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { BookmarkContentType } from "./bookmark_data";
+import { BookmarkContentType } from "../bookmark_data";
 import { styled } from "styled-components";
 
 type BookmarkIconProps = {

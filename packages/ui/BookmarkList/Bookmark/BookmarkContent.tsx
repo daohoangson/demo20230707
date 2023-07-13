@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { BookmarkData } from "./bookmark_data";
+import { BookmarkData } from "../bookmark_data";
 import BookmarkIcon from "./BookmarkIcon";
 import styled, { css } from "styled-components";
 

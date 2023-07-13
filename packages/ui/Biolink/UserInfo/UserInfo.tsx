@@ -13,7 +13,7 @@ const UserInfoContainer = styled.div`
 `;
 
 const UserInfoAvatarBig = styled.div`
-  background-color: #F0DC46; # --saveday-yellow
+  background-color: #f0dc46; /* --saveday-yellow */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

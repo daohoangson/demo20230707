@@ -2,9 +2,10 @@
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { bioBookmarkContentsQuery, bioUserInfoQuery } from "api-graphql";
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import { Bookmark, UserInfo } from "ui";
-import { BookmarkData } from "ui/BookmarkList/Bookmark/bookmark_data";
+import { BookmarkData } from "ui/BookmarkList/bookmark_data";
+import { BiolinkModal } from "./modal";
 
 interface BiolinkPageParams {
   userName: string;
@@ -12,7 +13,9 @@ interface BiolinkPageParams {
 
 type BiolinkProps = BiolinkPageParams;
 
-const viewDetailCallback = (bookmark: BookmarkData) => {};
+interface BiolinkBookmarkListProps extends BiolinkProps {
+  onViewDetail: Parameters<typeof Bookmark>[0]["onViewDetail"];
+}
 
 const BiolinkUserInfo: FC<BiolinkProps> = ({ userName }) => {
   const { data } = useSuspenseQuery(bioUserInfoQuery, {
@@ -22,7 +25,10 @@ const BiolinkUserInfo: FC<BiolinkProps> = ({ userName }) => {
   return <UserInfo userInfo={data?.bioUserInfo} />;
 };
 
-const BiolinkBookmarkList: FC<BiolinkProps> = ({ userName }) => {
+const BiolinkBookmarkList: FC<BiolinkBookmarkListProps> = ({
+  onViewDetail,
+  userName,
+}) => {
   const { data } = useSuspenseQuery(bioBookmarkContentsQuery, {
     variables: { userName },
   });
@@ -33,7 +39,7 @@ const BiolinkBookmarkList: FC<BiolinkProps> = ({ userName }) => {
         <Bookmark
           key={bookmark.id}
           bookmark={bookmark}
-          onViewDetail={viewDetailCallback}
+          onViewDetail={onViewDetail}
         />
       ))}
     </>
@@ -41,10 +47,14 @@ const BiolinkBookmarkList: FC<BiolinkProps> = ({ userName }) => {
 };
 
 export default function BiolinkPage({ params }: { params: BiolinkPageParams }) {
+  const [bookmark, setBookmark] = useState<BookmarkData>(null);
+  const onModalDismiss = useCallback(() => setBookmark(null), [setBookmark]);
+
   return (
     <>
       <BiolinkUserInfo {...params} />
-      <BiolinkBookmarkList {...params} />
+      <BiolinkBookmarkList {...params} onViewDetail={setBookmark} />
+      <BiolinkModal bookmark={bookmark} onDismiss={onModalDismiss} />
     </>
   );
 }
