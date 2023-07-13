@@ -1,12 +1,11 @@
 "use client";
 
-import { Button, Header } from "ui";
+import { Header } from "ui";
 
 export default function Page() {
   return (
     <>
       <Header text="Docs" />
-      <Button />
     </>
   );
 }
