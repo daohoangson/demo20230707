@@ -1,24 +1,34 @@
 "use client";
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-import { bioBookmarkContentsQuery } from "api-graphql";
-import { Bookmark, Button, Header } from "ui";
+import { bioBookmarkContentsQuery, bioUserInfoQuery } from "api-graphql";
+import { FC } from "react";
+import { Bookmark, UserInfo } from "ui";
 import { BookmarkData } from "ui/BookmarkList/Bookmark/bookmark_data";
+
+interface BiolinkPageParams {
+  userName: string;
+}
+
+type BiolinkProps = BiolinkPageParams;
 
 const viewDetailCallback = (bookmark: BookmarkData) => {};
 
-export default function BiolinkPage({
-  params,
-}: {
-  params: { userName: string };
-}) {
+const BiolinkUserInfo: FC<BiolinkProps> = ({ userName }) => {
+  const { data } = useSuspenseQuery(bioUserInfoQuery, {
+    variables: { userName },
+  });
+
+  return <UserInfo userInfo={data?.bioUserInfo} />;
+};
+
+const BiolinkBookmarkList: FC<BiolinkProps> = ({ userName }) => {
   const { data } = useSuspenseQuery(bioBookmarkContentsQuery, {
-    variables: { userName: params.userName },
+    variables: { userName },
   });
 
   return (
     <>
-      <Header text={params.userName} />
       {data?.bioBookmarkContents?.map((bookmark) => (
         <Bookmark
           key={bookmark.id}
@@ -26,6 +36,15 @@ export default function BiolinkPage({
           onViewDetail={viewDetailCallback}
         />
       ))}
+    </>
+  );
+};
+
+export default function BiolinkPage({ params }: { params: BiolinkPageParams }) {
+  return (
+    <>
+      <BiolinkUserInfo {...params} />
+      <BiolinkBookmarkList {...params} />
     </>
   );
 }

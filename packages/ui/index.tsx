@@ -1,5 +1,3 @@
-import * as React from "react";
-
-// component exports
+export * from "./Biolink";
 export * from "./BookmarkList";
 export * from "./Header";
