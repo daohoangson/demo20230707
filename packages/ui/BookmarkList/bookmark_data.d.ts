@@ -17,6 +17,7 @@ export type BookmarkData = {
 
 export type BookmarkDetailData = {
   content?: string;
+  keynotes?: string;
 };
 
 export type BookmarkImportSource = "TELEGRAM_FILE" | "URL";
