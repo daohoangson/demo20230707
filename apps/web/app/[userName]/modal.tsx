@@ -22,7 +22,6 @@ const Body = styled.div`
   margin: 10px;
 `;
 
-// TODO: Modal.setAppElement
 const StyledModal = styled(Modal)`
   background: white;
   height: 100%;
@@ -41,6 +40,8 @@ function onAfterClose() {
 export const BiolinkModal: FC<BiolinkModal> = ({ bookmark, onDismiss }) => {
   return (
     <StyledModal
+      // TODO: setup Modal.setAppElement
+      ariaHideApp={false}
       isOpen={bookmark !== null}
       onAfterOpen={onAfterOpen}
       onAfterClose={onAfterClose}

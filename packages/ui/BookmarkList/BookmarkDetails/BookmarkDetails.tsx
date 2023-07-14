@@ -37,7 +37,6 @@ const BookmarkDetailsKeyPoints = styled.div`
 const BookmarkDetails: FC<BookmarkDetailsProps> = ({ bookmark }) => {
   const keyPoints = bookmark.detailData?.keynotes ?? "";
 
-  console.log({ bookmark });
   if (bookmark.contentType === "IMAGE") {
     return <BookmarkDetailsImage bookmark={bookmark} />;
   }
