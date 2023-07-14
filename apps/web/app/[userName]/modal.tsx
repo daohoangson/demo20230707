@@ -26,6 +26,7 @@ const Body = styled.div`
 const StyledModal = styled(Modal)`
   background: white;
   height: 100%;
+  overflow: scroll;
   width: 100%;
 `;
 
